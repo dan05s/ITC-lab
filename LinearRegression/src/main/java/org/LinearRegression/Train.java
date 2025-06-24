@@ -2,52 +2,48 @@ package org.LinearRegression;
 import java.util.List;
 
 public class Train {
-    private double weight = 0.0;
-    private double bias = 0.0;
+    private float weight = 0;
+    private float bias = 0;
+    private float[] result = {0,0};
 
-    public double getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public double getBias() {
-        return bias;
-    }
-
-    public void setWeight(double weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 
-    public void setBias(double bias) {
+    public float getBias() {
+        return bias;
+    }
+
+    public void setBias(float bias) {
         this.bias = bias;
     }
 
-    public double predict(double x) {
-        return weight * x + bias;
+    public float predict(float x){
+        return getWeight()*x+getBias();
     }
-
-    public void train(List<Double> x, List<Double> y, double lr, int epochs) {
-        int m = x.size();
-
-        for (int i = 0; i < epochs; i++) {
-            double dw = 0;
-            double db = 0;
-
-            for (int j = 0; j < m; j++) {
-                double xj = x.get(j);
-                double yj = y.get(j);
-                double prediction = predict(xj);
-                double error = prediction - yj;
-                dw += error * xj;
+    public float[] train(List<float[]> dataset,float lr,int epochs){
+        for(int i=0;i<epochs;i++){
+            float dw = 0;
+            float db = 0;
+            for(float[] data:dataset){
+                float x=data[0];
+                float y=data[1];
+                float pr = predict(x);
+                float error = pr - y;
+                dw += error*x;
                 db += error;
             }
-
-            dw = dw / m;
-            db = db / m;
-
-            weight -= lr * dw;
-            bias -= lr * db;
+            dw = dw/dataset.size();
+            db = db/dataset.size();
+            setWeight(getWeight()-lr*dw);
+            setBias(getBias()-lr*db);
         }
-
-        System.out.printf("Train result: %.4fx + %.4f%n", weight, bias);
+        result[0] = getWeight();
+        result[1] = getBias();
+        return result;
     }
 }

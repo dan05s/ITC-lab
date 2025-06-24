@@ -1,52 +1,30 @@
 package org.LinearRegression;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CsvReader {
-    public static class XYData {
-        public List<Double> xList;
-        public List<Double> yList;
+    public List<float[]> readCsv(String filename) {
+        List<float[]> dataSet = new ArrayList<>();
 
-        public XYData(List<Double> xList, List<Double> yList) {
-            this.xList = xList;
-            this.yList = yList;
-        }
-    }
-
-    public XYData readXY(String filename) {
-        List<Double> xList = new ArrayList<>();
-        List<Double> yList = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        try{
+            File file = new File(filename);
+            BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
-            boolean isFirstLine = true;
 
-            while ((line = br.readLine()) != null) {
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue;
-                }
-
-                String[] parts = line.trim().split(",");
-                if (parts.length < 2) continue;
-
-                try {
-                    double x = Double.parseDouble(parts[0].trim());
-                    double y = Double.parseDouble(parts[1].trim());
-                    if (Double.isNaN(x) || Double.isNaN(y)) {
-                        System.out.println("NaN data: " + Arrays.toString(parts));
-                    }
-                    xList.add(x);
-                    yList.add(y);
-                } catch (NumberFormatException e) {
-                    System.out.println("Wrong numbers: " + Arrays.toString(parts));
-                }
+            br.readLine();
+            while((line= br.readLine())!=null){
+                String[] lineArr = line.split(",");
+                float x = Float.parseFloat(lineArr[0]);
+                float y = Float.parseFloat(lineArr[1]);
+                dataSet.add(new float[]{x, y});
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        }catch(Exception e){
+            System.err.println(e.getMessage());
         }
-
-        return new XYData(xList, yList);
+        return dataSet;
     }
 }
