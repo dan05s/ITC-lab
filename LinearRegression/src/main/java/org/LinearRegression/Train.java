@@ -25,7 +25,9 @@ public class Train {
     public float predict(float x){
         return getWeight()*x+getBias();
     }
-    public float[] train(List<float[]> dataset,float lr,int epochs){
+    public float[] train(float w, float b,List<float[]> dataset,float lr,int epochs){
+        setWeight(w);
+        setBias(b);
         for(int i=0;i<epochs;i++){
             float dw = 0;
             float db = 0;

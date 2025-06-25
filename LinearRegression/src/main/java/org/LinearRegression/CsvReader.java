@@ -16,7 +16,7 @@ public class CsvReader {
             String line;
 
             br.readLine();
-            while((line= br.readLine())!=null){
+            while((line=br.readLine())!=null){
                 String[] lineArr = line.split(",");
                 float x = Float.parseFloat(lineArr[0]);
                 float y = Float.parseFloat(lineArr[1]);
