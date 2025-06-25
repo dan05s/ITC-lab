@@ -17,6 +17,6 @@ public class Main {
         float lr = sc.nextFloat();
         Train tr = new Train();
         float[] result = tr.train(weight,bias,dataset,lr,epochs);
-        System.out.println("cost function = "+result[0]+"x + "+result[1]);
+        System.out.printf("Model function = %.4fx + %.4f\n",result[0],result[1]);
     }
 }
