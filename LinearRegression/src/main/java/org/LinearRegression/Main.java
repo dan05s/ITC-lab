@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String fileName = "src/main/resources/data.csv";
+        String fileName = "src/main/resources/data2.csv";
         CsvReader cr = new CsvReader();
         List<float[]> dataset = cr.readCsv(fileName);
         System.out.print("Enter weight: ");
