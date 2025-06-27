@@ -1,7 +1,7 @@
 package org.LinearRegression;
 import java.util.List;
 
-public class Train {
+public class Training {
     private float weight = 0;
     private float bias = 0;
     private float[] result = {0,0};
